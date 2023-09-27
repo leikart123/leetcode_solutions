@@ -34,19 +34,17 @@ void serialize_node(struct TreeNode *node, int **data, int *pos, int *size)
 }
 
 char* serialize(struct TreeNode* root) {
-    char **result = NULL;
+    int *result = NULL;
     int pos = 0;
     size_t size = FIELD_SIZE * DEFAULT_NUM_NODE;
 
-    result = (char **)malloc(sizeof(char *));
-    memset(result, 0, sizeof(char *));
     if (root)
     {
-        result[0] = (char *)malloc(size);
-        memset(result[0], 0, size);
-        serialize_node(root, (int **)result, &pos, &size);
+        result = (int *)malloc(size);
+        memset(result, 0, size);
+        serialize_node(root, &result, &pos, &size);
     }
-    return result[0];
+    return (char *)result;
 }
 
 void deserialize_node(struct TreeNode *node, int *source_data, int *current)
